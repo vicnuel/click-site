@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
-import Image from 'next/image';
+import { useState, useEffect } from "react";
+import Image from "next/image";
 
 interface SiteReplicaProps {
   imageUrl: string;
@@ -10,7 +10,12 @@ interface SiteReplicaProps {
   onInteraction: () => void;
 }
 
-export function SiteReplica({ imageUrl, mobileImageUrl, officialSiteUrl, onInteraction }: SiteReplicaProps) {
+export function SiteReplica({
+  imageUrl,
+  mobileImageUrl,
+  officialSiteUrl,
+  onInteraction,
+}: SiteReplicaProps) {
   const [imageError, setImageError] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
@@ -20,8 +25,8 @@ export function SiteReplica({ imageUrl, mobileImageUrl, officialSiteUrl, onInter
     };
 
     checkIfMobile();
-    window.addEventListener('resize', checkIfMobile);
-    return () => window.removeEventListener('resize', checkIfMobile);
+    window.addEventListener("resize", checkIfMobile);
+    return () => window.removeEventListener("resize", checkIfMobile);
   }, []);
 
   const handleClick = (e: React.MouseEvent) => {
@@ -30,14 +35,14 @@ export function SiteReplica({ imageUrl, mobileImageUrl, officialSiteUrl, onInter
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter' || e.key === ' ') {
+    if (e.key === "Enter" || e.key === " ") {
       e.preventDefault();
       onInteraction();
     }
   };
 
   // Escolhe a imagem baseada no tamanho da tela
-  const currentImageUrl = isMobile && mobileImageUrl ? mobileImageUrl : imageUrl;
+  // const currentImageUrl = isMobile && mobileImageUrl ? mobileImageUrl : imageUrl;
 
   return (
     <div className="w-full h-screen overflow-hidden relative">
@@ -50,7 +55,7 @@ export function SiteReplica({ imageUrl, mobileImageUrl, officialSiteUrl, onInter
         role="button"
         aria-label="Acessar site oficial"
       />
-      
+
       {/* Imagem do site oficial */}
       {!imageError ? (
         <Image
@@ -70,23 +75,26 @@ export function SiteReplica({ imageUrl, mobileImageUrl, officialSiteUrl, onInter
                 🌐 Site Oficial
               </h1>
               <p className="text-xl text-gray-600 mb-6">
-                Clique em qualquer lugar para acessar o site oficial e aproveitar nossas ofertas exclusivas!
+                Clique em qualquer lugar para acessar o site oficial e
+                aproveitar nossas ofertas exclusivas!
               </p>
               <div className="w-full h-64 bg-gray-200 rounded-lg flex items-center justify-center mb-4">
                 <div className="text-center">
                   <div className="text-4xl mb-2">🖼️</div>
-                  <span className="text-gray-500">Carregando preview do site...</span>
+                  <span className="text-gray-500">
+                    Carregando preview do site...
+                  </span>
                 </div>
               </div>
               <div className="bg-yellow-100 border-l-4 border-yellow-500 p-4 rounded">
                 <p className="text-sm text-yellow-700">
-                  💡 <strong>Dica:</strong> Configure a variável NEXT_PUBLIC_OFFICIAL_SITE_IMAGE_URL no arquivo .env.local para exibir a imagem real do site.
+                  💡 <strong>Dica:</strong> Configure a variável
+                  NEXT_PUBLIC_OFFICIAL_SITE_IMAGE_URL no arquivo .env.local para
+                  exibir a imagem real do site.
                 </p>
               </div>
             </div>
-            <p className="text-sm text-gray-500">
-              🔗 {officialSiteUrl}
-            </p>
+            <p className="text-sm text-gray-500">🔗 {officialSiteUrl}</p>
           </div>
         </div>
       )}
